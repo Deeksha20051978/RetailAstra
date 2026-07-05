@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Retail Astra | Dashboard</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="index.html">
+
+            <i class="bi bi-cpu-fill"></i>
+
+            Retail Astra
+
+        </a>
+
+        <button class="navbar-toggler"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="index.html">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="products.html">
+
+                        Products
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="inventory.html">
+
+                        Inventory
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link active"
+                       href="dashboard.html">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="chatbot.html">
+
+                        AI Assistant
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ================= HEADER ================= -->
+
+<section class="dashboard-header">
+
+    <div class="container text-center">
+
+        <h1>
+
+            Business Dashboard
+
+        </h1>
+
+        <p>
+
+            Real-time retail insights powered by Agentic AI
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ================= KPI CARDS ================= -->
+
+<section class="dashboard-cards">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="dashboard-card">
+
+                    <i class="bi bi-currency-rupee"></i>
+
+                    <h2 id="revenueValue">
+
+                        ₹18.4L
+
+                    </h2>
+
+                    <p>
+
+                        Monthly Revenue
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="dashboard-card">
+
+                    <i class="bi bi-cart-check-fill"></i>
+
+                    <h2 id="ordersValue">
+
+                        1542
+
+                    </h2>
+
+                    <p>
+
+                        Orders
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="dashboard-card">
+
+                    <i class="bi bi-people-fill"></i>
+
+                    <h2 id="customersValue">
+
+                        986
+
+                    </h2>
+
+                    <p>
+
+                        Customers
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="dashboard-card">
+
+                    <i class="bi bi-box-seam-fill"></i>
+
+                    <h2 id="stockValue">
+
+                        520
+
+                    </h2>
+
+                    <p>
+
+                        Products
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= AGENT STATUS ================= -->
+
+<section class="agent-status">
+
+    <div class="container">
+
+        <div class="section-title text-center">
+
+            <h2>
+
+                AI Agent Status
+
+            </h2>
+
+            <p>
+
+                All agents currently running
+
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="agent-card">
+
+                    <i class="bi bi-box-fill"></i>
+
+                    <h4>
+
+                        Inventory Agent
+
+                    </h4>
+
+                    <span class="badge bg-success">
+
+ACTIVE
+
+</span>
+
+                    <p>
+
+                        Monitoring stock continuously.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="agent-card">
+
+                    <i class="bi bi-tags-fill"></i>
+
+                    <h4>
+
+                        Pricing Agent
+
+                    </h4>
+
+                    <span class="badge bg-success">
+
+ACTIVE
+
+</span>
+
+                    <p>
+
+                        Updating dynamic pricing.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="agent-card">
+
+                    <i class="bi bi-stars"></i>
+
+                    <h4>
+
+                        Recommendation Agent
+
+                    </h4>
+
+                    <span class="badge bg-success">
+
+ACTIVE
+
+</span>
+
+                    <p>
+
+                        Generating personalized suggestions.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= SALES OVERVIEW ================= -->
+
+<section class="sales-overview">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-8">
+
+                <div class="analytics-card">
+
+                    <h3>
+
+                        Sales Overview
+
+                    </h3>
+
+                    <div class="chart-placeholder">
+
+                        <i class="bi bi-bar-chart-line-fill"></i>
+
+                        <h5>
+
+                            Sales Analytics Graph
+
+                        </h5>
+
+                        <p>
+
+                            (Spring Boot + Dashboard API)
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="analytics-card">
+
+                    <h3>
+
+                        Top Categories
+
+                    </h3>
+
+                    <ul class="list-group">
+
+                        <li class="list-group-item">
+
+                            Men's Fashion
+
+                            <span class="float-end">
+
+42%
+
+</span>
+
+                        </li>
+
+                        <li class="list-group-item">
+
+                            Women's Fashion
+
+                            <span class="float-end">
+
+28%
+
+</span>
+
+                        </li>
+
+                        <li class="list-group-item">
+
+                            Accessories
+
+                            <span class="float-end">
+
+18%
+
+</span>
+
+                        </li>
+
+                        <li class="list-group-item">
+
+                            Footwear
+
+                            <span class="float-end">
+
+12%
+
+</span>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= RECENT ORDERS ================= -->
+
+<section class="recent-orders">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-8">
+
+                <div class="analytics-card">
+
+                    <h3>
+
+                        Recent Orders
+
+                    </h3>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead>
+
+                            <tr>
+
+                                <th>Order ID</th>
+
+                                <th>Customer</th>
+
+                                <th>Product</th>
+
+                                <th>Amount</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            <tr>
+
+                                <td>#RA1001</td>
+
+                                <td>Rahul Sharma</td>
+
+                                <td>Allen Solly Shirt</td>
+
+                                <td>₹2,499</td>
+
+                                <td>
+
+<span class="badge bg-success">
+
+Delivered
+
+</span>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>#RA1002</td>
+
+                                <td>Ananya Verma</td>
+
+                                <td>Louis Philippe Blazer</td>
+
+                                <td>₹5,999</td>
+
+                                <td>
+
+<span class="badge bg-primary">
+
+Shipped
+
+</span>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>#RA1003</td>
+
+                                <td>Karan Singh</td>
+
+                                <td>Travel Backpack</td>
+
+                                <td>₹2,599</td>
+
+                                <td>
+
+<span class="badge bg-warning">
+
+Processing
+
+</span>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>#RA1004</td>
+
+                                <td>Priya Patel</td>
+
+                                <td>Leather Wallet</td>
+
+                                <td>₹1,299</td>
+
+                                <td>
+
+<span class="badge bg-success">
+
+Delivered
+
+</span>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>#RA1005</td>
+
+                                <td>Riya Kapoor</td>
+
+                                <td>Reebok Running Shoes</td>
+
+                                <td>₹4,499</td>
+
+                                <td>
+
+<span class="badge bg-danger">
+
+Cancelled
+
+</span>
+
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="analytics-card">
+
+                    <h3>
+
+                        Inventory Health
+
+                    </h3>
+
+                    <div class="health-item">
+
+                        <p>
+
+                            Available Stock
+
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-bar bg-success"
+
+                                 style="width:85%">
+
+                                85%
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="health-item mt-4">
+
+                        <p>
+
+                            Low Stock
+
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-bar bg-warning"
+
+                                 style="width:10%">
+
+                                10%
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="health-item mt-4">
+
+                        <p>
+
+                            Out Of Stock
+
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-bar bg-danger"
+
+                                 style="width:5%">
+
+                                5%
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= AI RECOMMENDATIONS ================= -->
+
+<section class="dashboard-ai">
+
+    <div class="container">
+
+        <div class="section-title text-center">
+
+            <h2>
+
+                Agent Recommendations
+
+            </h2>
+
+            <p>
+
+                Suggestions generated automatically by the Agent Orchestrator.
+
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+
+                <div class="recommendation-box">
+
+                    <i class="bi bi-lightbulb-fill"></i>
+
+                    <h4>
+
+                        Inventory Agent
+
+                    </h4>
+
+                    <p>
+
+                        Restock Travel Backpack within the next 48 hours.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="recommendation-box">
+
+                    <i class="bi bi-currency-exchange"></i>
+
+                    <h4>
+
+                        Pricing Agent
+
+                    </h4>
+
+                    <p>
+
+                        Increase Formal Wear prices by 5% due to high demand.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="recommendation-box">
+
+                    <i class="bi bi-person-check-fill"></i>
+
+                    <h4>
+
+                        Loyalty Agent
+
+                    </h4>
+
+                    <p>
+
+                        Offer 15% coupon to customers with more than 10 purchases.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= NOTIFICATIONS ================= -->
+
+<section class="dashboard-alerts">
+
+    <div class="container">
+
+        <div class="section-title text-center">
+
+            <h2>
+
+                System Notifications
+
+            </h2>
+
+        </div>
+
+        <div class="alert alert-success">
+
+            Inventory Agent completed today's stock audit successfully.
+
+        </div>
+
+        <div class="alert alert-warning">
+
+            5 products are below the minimum stock threshold.
+
+        </div>
+
+        <div class="alert alert-info">
+
+            Recommendation Agent generated 327 personalized suggestions today.
+
+        </div>
+
+        <div class="alert alert-primary">
+
+            Pricing Agent updated 18 product prices based on demand.
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container text-center">
+
+        <h4>
+
+            Retail Astra
+
+        </h4>
+
+        <p>
+
+            Agentic AI Powered Retail Analytics Dashboard
+
+        </p>
+
+        <p>
+
+            © 2026 Retail Astra. All Rights Reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="dashboard.js"></script>
+
+</body>
+
+</html>

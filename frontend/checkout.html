@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Retail Astra | Checkout</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="index.html">
+
+            <i class="bi bi-cpu-fill"></i>
+
+            Retail Astra
+
+        </a>
+
+        <button class="navbar-toggler"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="index.html">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="products.html">
+
+                        Products
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="inventory.html">
+
+                        Inventory
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="dashboard.html">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="chatbot.html">
+
+                        AI Assistant
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link active"
+                       href="checkout.html">
+
+                        Checkout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ================= HEADER ================= -->
+
+<section class="checkout-header">
+
+    <div class="container text-center">
+
+        <h1>
+
+            Checkout
+
+        </h1>
+
+        <p>
+
+            Review your cart and complete your purchase.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ================= CHECKOUT ================= -->
+
+<section class="checkout-section">
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- CUSTOMER DETAILS -->
+
+            <div class="col-lg-7">
+
+                <div class="checkout-card">
+
+                    <h3>
+
+                        Customer Details
+
+                    </h3>
+
+                    <form id="checkoutForm">
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+
+                                    Full Name
+
+                                </label>
+
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        id="customerName"
+                                        placeholder="Enter name">
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+
+                                    Email
+
+                                </label>
+
+                                <input
+                                        type="email"
+                                        class="form-control"
+                                        id="customerEmail"
+                                        placeholder="Enter email">
+
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Phone Number
+
+                            </label>
+
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="customerPhone"
+                                    placeholder="Enter phone number">
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Delivery Address
+
+                            </label>
+
+                            <textarea
+                                    class="form-control"
+                                    rows="4"
+                                    id="customerAddress"
+                                    placeholder="Enter delivery address"></textarea>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                Payment Method
+
+                            </label>
+
+                            <select
+                                    class="form-select"
+                                    id="paymentMethod">
+
+                                <option>
+
+                                    UPI
+
+                                </option>
+
+                                <option>
+
+                                    Credit Card
+
+                                </option>
+
+                                <option>
+
+                                    Debit Card
+
+                                </option>
+
+                                <option>
+
+                                    Cash On Delivery
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- ORDER SUMMARY -->
+
+            <div class="col-lg-5">
+
+                <div class="checkout-card">
+
+                    <h3>
+
+                        Order Summary
+
+                    </h3>
+
+                    <table class="table">
+
+                        <tbody>
+
+                        <tr>
+
+                            <td>
+
+                                Allen Solly Shirt
+
+                            </td>
+
+                            <td>
+
+                                ₹2,499
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+
+                                Leather Wallet
+
+                            </td>
+
+                            <td>
+
+                                ₹1,299
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+
+                                Travel Backpack
+
+                            </td>
+
+                            <td>
+
+                                ₹2,599
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+
+                                Delivery
+
+                            </td>
+
+                            <td>
+
+                                FREE
+
+                            </td>
+
+                        </tr>
+
+                        <tr class="table-primary">
+
+                            <th>
+
+                                Grand Total
+
+                            </th>
+
+                            <th id="grandTotal">
+
+                                ₹6,397
+
+                            </th>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <button
+                            class="btn btn-primary w-100"
+                            id="placeOrderBtn">
+
+                        <i class="bi bi-bag-check-fill"></i>
+
+                        Place Order
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= AI RECOMMENDATIONS ================= -->
+
+<section class="checkout-ai">
+
+    <div class="container">
+
+        <div class="section-title text-center">
+
+            <h2>
+
+                Recommended Add-ons
+
+            </h2>
+
+            <p>
+
+                Suggested by the Recommendation Agent.
+
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+
+                <div class="recommend-card">
+
+                    <i class="bi bi-wallet2"></i>
+
+                    <h4>
+
+                        Leather Wallet
+
+                    </h4>
+
+                    <p>
+
+                        ₹1,299
+
+                    </p>
+
+                    <button class="btn btn-outline-primary">
+
+                        Add
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="recommend-card">
+
+                    <i class="bi bi-watch"></i>
+
+                    <h4>
+
+                        Analog Watch
+
+                    </h4>
+
+                    <p>
+
+                        ₹3,499
+
+                    </p>
+
+                    <button class="btn btn-outline-primary">
+
+                        Add
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="recommend-card">
+
+                    <i class="bi bi-bag-fill"></i>
+
+                    <h4>
+
+                        Laptop Backpack
+
+                    </h4>
+
+                    <p>
+
+                        ₹2,899
+
+                    </p>
+
+                    <button class="btn btn-outline-primary">
+
+                        Add
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container text-center">
+
+        <h4>
+
+            Retail Astra
+
+        </h4>
+
+        <p>
+
+            Smart Checkout powered by Agentic AI
+
+        </p>
+
+        <p>
+
+            © 2026 Retail Astra. All Rights Reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="checkout.js"></script>
+
+</body>
+
+</html>
