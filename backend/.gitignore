@@ -38,3 +38,8 @@ target/
 *.iml
 .mvn/wrapper/maven-wrapper.jar
 *.class
+
+
+# Ignore application properties
+src/main/resources/application.properties
+application.properties

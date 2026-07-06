@@ -1,329 +1,96 @@
-/* ==========================================================
-                RETAIL ASTRA CHECKOUT PAGE
-                checkout.js
-========================================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
-
     initializeCheckout();
-
     initializeRecommendationButtons();
-
     initializeFormValidation();
-
 });
 
-
-/* ==========================================================
-                    DOM ELEMENTS
-========================================================== */
-
 const placeOrderBtn = document.getElementById("placeOrderBtn");
-
 const customerName = document.getElementById("customerName");
-
 const customerEmail = document.getElementById("customerEmail");
-
 const customerPhone = document.getElementById("customerPhone");
-
 const customerAddress = document.getElementById("customerAddress");
-
 const paymentMethod = document.getElementById("paymentMethod");
 
+// ⚠️ Replace these IDs with real product IDs from your database (products table)
+const CART_ITEMS = [
+    { productId: 1, quantity: 1 }, // Allen Solly Shirt
+    { productId: 2, quantity: 1 }, // Leather Wallet
+    { productId: 3, quantity: 1 }  // Travel Backpack
+];
 
-/* ==========================================================
-                PLACE ORDER BUTTON
-========================================================== */
+// ⚠️ Replace with a real customer ID once you have login/signup, or keep 1 for demo/testing
+const CUSTOMER_ID = 1;
 
 function initializeCheckout() {
-
     if (!placeOrderBtn) return;
-
     placeOrderBtn.addEventListener("click", placeOrder);
-
 }
-
-
-/* ==========================================================
-                PLACE ORDER
-========================================================== */
-
-function placeOrder() {
-
-    if (!validateForm()) {
-
-        return;
-
-    }
-
-    alert(
-
-        "🎉 Order Placed Successfully!\n\n" +
-
-        "Thank you for shopping with Retail Astra.\n\n" +
-
-        "Your order has been sent for processing."
-
-    );
-
-    submitOrder();
-
-}
-
-
-/* ==========================================================
-                FORM VALIDATION
-========================================================== */
 
 function initializeFormValidation() {
-
-    const fields = [
-
-        customerName,
-
-        customerEmail,
-
-        customerPhone,
-
-        customerAddress
-
-    ];
-
-    fields.forEach(field => {
-
+    [customerName, customerEmail, customerPhone, customerAddress].forEach(field => {
         if (!field) return;
-
-        field.addEventListener("focus", () => {
-
-            field.style.borderColor = "#2563eb";
-
-        });
-
-        field.addEventListener("blur", () => {
-
-            field.style.borderColor = "#ced4da";
-
-        });
-
+        field.addEventListener("focus", () => { field.style.borderColor = "#2563eb"; });
+        field.addEventListener("blur", () => { field.style.borderColor = "#ced4da"; });
     });
-
 }
-
 
 function validateForm() {
-
-    if (customerName.value.trim() === "") {
-
-        alert("Please enter your name.");
-
-        customerName.focus();
-
-        return false;
-
-    }
-
-    if (customerEmail.value.trim() === "") {
-
-        alert("Please enter your email.");
-
-        customerEmail.focus();
-
-        return false;
-
-    }
-
-    if (customerPhone.value.trim() === "") {
-
-        alert("Please enter your phone number.");
-
-        customerPhone.focus();
-
-        return false;
-
-    }
-
-    if (customerAddress.value.trim() === "") {
-
-        alert("Please enter your delivery address.");
-
-        customerAddress.focus();
-
-        return false;
-
-    }
-
+    if (customerName.value.trim() === "") { alert("Please enter your name."); customerName.focus(); return false; }
+    if (customerEmail.value.trim() === "") { alert("Please enter your email."); customerEmail.focus(); return false; }
+    if (customerPhone.value.trim() === "") { alert("Please enter your phone number."); customerPhone.focus(); return false; }
+    if (customerAddress.value.trim() === "") { alert("Please enter your delivery address."); customerAddress.focus(); return false; }
     return true;
-
 }
-
-
-/* ==========================================================
-            RECOMMENDATION BUTTONS
-========================================================== */
 
 function initializeRecommendationButtons() {
-
     const buttons = document.querySelectorAll(".recommend-card button");
-
     buttons.forEach(button => {
-
         button.addEventListener("click", () => {
-
             const product = button.parentElement.querySelector("h4").innerText;
-
-            alert(
-
-                product +
-
-                "\n\nAdded to cart successfully."
-
-            );
-
+            alert(product + "\n\nAdded to cart successfully.");
         });
-
     });
-
 }
 
-
-/* ==========================================================
-                BACKEND READY API
-========================================================== */
-
-/*
-
-CheckoutController
-
-POST
-
-/checkout
-
-Expected Request
-
-{
-
-"name":"Ananya",
-
-"email":"abc@gmail.com",
-
-"phone":"9876543210",
-
-"address":"Bangalore",
-
-"paymentMethod":"UPI"
-
+async function placeOrder() {
+    if (!validateForm()) return;
+    await submitOrder();
 }
-
-*/
-
 
 async function submitOrder() {
-
-    const order = {
-
-        name: customerName.value,
-
-        email: customerEmail.value,
-
-        phone: customerPhone.value,
-
-        address: customerAddress.value,
-
-        paymentMethod: paymentMethod.value
-
+    const payload = {
+        customerId: CUSTOMER_ID,
+        cartItems: CART_ITEMS,
+        couponCode: null
     };
 
     try {
+        const response = await fetch("http://localhost:8080/checkout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
 
-        const response = await fetch(
+        const result = await response.json();
 
-            "http://localhost:8080/checkout",
+        if (!response.ok || result.success === false) {
+            alert("Order failed: " + (result.message || "Unknown error"));
+            return;
+        }
 
-            {
-
-                method: "POST",
-
-                headers: {
-
-                    "Content-Type": "application/json"
-
-                },
-
-                body: JSON.stringify(order)
-
-            }
-
+        const data = result.data;
+        alert(
+            "🎉 Order Placed Successfully!\n\n" +
+            "Order ID: " + data.orderId + "\n" +
+            "Total: ₹" + data.totalAmount + "\n" +
+            "Discount: ₹" + (data.discount || 0) + "\n" +
+            "Loyalty Points Earned: " + (data.loyaltyEarned || 0)
         );
 
-        const data = await response.json();
-
-        console.log(data);
-
+    } catch (error) {
+        console.log("Checkout API not connected:", error);
+        alert("Could not reach the server. Is the backend running on port 8080?");
     }
-
-    catch (error) {
-
-        console.log("Checkout API not connected.");
-
-    }
-
 }
-
-
-/* ==========================================================
-                ORDER SUMMARY EFFECT
-========================================================== */
-
-const summaryRows = document.querySelectorAll(".checkout-card tbody tr");
-
-summaryRows.forEach(row => {
-
-    row.addEventListener("mouseenter", () => {
-
-        row.style.transition = ".2s";
-
-        row.style.transform = "scale(1.01)";
-
-    });
-
-    row.addEventListener("mouseleave", () => {
-
-        row.style.transform = "scale(1)";
-
-    });
-
-});
-
-
-/* ==========================================================
-                CARD ANIMATION
-========================================================== */
-
-const cards = document.querySelectorAll(
-
-    ".checkout-card,.recommend-card"
-
-);
-
-cards.forEach(card => {
-
-    card.addEventListener("mouseenter", () => {
-
-        card.style.transform = "translateY(-8px)";
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform = "translateY(0px)";
-
-    });
-
-});
-
-
-/* ==========================================================
-                PAGE READY
-========================================================== */
 
 console.log("Retail Astra Checkout Loaded Successfully.");

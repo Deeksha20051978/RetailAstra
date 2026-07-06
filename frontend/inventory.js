@@ -1,354 +1,114 @@
-/* ==========================================================
-                RETAIL ASTRA INVENTORY PAGE
-========================================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
-
+    fetchInventory();
     initializeInventorySearch();
-
-    initializeButtons();
-
-    initializeRowAnimation();
-
 });
 
-
-/* ==========================================================
-                    SEARCH INVENTORY
-========================================================== */
-
 function initializeInventorySearch() {
-
     const searchInput = document.getElementById("inventorySearch");
-
-    const rows = document.querySelectorAll("#inventoryTable tr");
-
     if (!searchInput) return;
 
     searchInput.addEventListener("keyup", function () {
-
         const keyword = this.value.toLowerCase();
-
+        const rows = document.querySelectorAll("#inventoryTable tr");
         rows.forEach(row => {
-
             const text = row.innerText.toLowerCase();
-
-            if (text.includes(keyword)) {
-
-                row.style.display = "";
-
-            }
-
-            else {
-
-                row.style.display = "none";
-
-            }
-
+            row.style.display = text.includes(keyword) ? "" : "none";
         });
-
     });
-
 }
-
-
-/* ==========================================================
-                BUTTON CLICK EVENTS
-========================================================== */
-
-function initializeButtons() {
-
-    const buttons = document.querySelectorAll(".inventory-table button");
-
-    buttons.forEach(button => {
-
-        button.addEventListener("click", function () {
-
-            const row = this.closest("tr");
-
-            const product = row.cells[1].innerText;
-
-            const stock = row.cells[4].innerText;
-
-            if (this.innerText === "Update") {
-
-                alert(
-
-                    "Updating Inventory\n\n" +
-
-                    "Product : " + product +
-
-                    "\nCurrent Stock : " + stock +
-
-                    "\n\nBackend Integration Coming Soon."
-
-                );
-
-            }
-
-            else {
-
-                alert(
-
-                    "Restocking Product\n\n" +
-
-                    "Product : " + product +
-
-                    "\n\nInventory Agent will update stock."
-
-                );
-
-            }
-
-        });
-
-    });
-
-}
-
-
-/* ==========================================================
-            TABLE ROW HOVER ANIMATION
-========================================================== */
 
 function initializeRowAnimation() {
-
     const rows = document.querySelectorAll("#inventoryTable tr");
-
     rows.forEach(row => {
-
-        row.addEventListener("mouseenter", () => {
-
-            row.style.transition = ".25s";
-
-            row.style.transform = "scale(1.01)";
-
-        });
-
-        row.addEventListener("mouseleave", () => {
-
-            row.style.transform = "scale(1)";
-
-        });
-
+        row.addEventListener("mouseenter", () => { row.style.transition = ".25s"; row.style.transform = "scale(1.01)"; });
+        row.addEventListener("mouseleave", () => { row.style.transform = "scale(1)"; });
     });
-
 }
 
-
-/* ==========================================================
-            SUMMARY CARD ANIMATION
-========================================================== */
-
-const cards = document.querySelectorAll(".summary-card");
-
-cards.forEach(card => {
-
-    card.addEventListener("mouseenter", () => {
-
-        card.style.transform = "translateY(-10px)";
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform = "translateY(0px)";
-
-    });
-
-});
-
-
-/* ==========================================================
-              INSIGHT CARD EFFECT
-========================================================== */
-
-const insightCards = document.querySelectorAll(".insight-card");
-
-insightCards.forEach(card => {
-
-    card.addEventListener("mouseenter", () => {
-
-        card.style.transform = "translateY(-10px) scale(1.02)";
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform = "translateY(0px) scale(1)";
-
-    });
-
-});
-
-
-/* ==========================================================
-            INVENTORY STATUS COUNTER
-========================================================== */
-
-const counters = document.querySelectorAll(".summary-card h3");
-
-const observer = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-        if (!entry.isIntersecting) return;
-
-        const counter = entry.target;
-
-        const target = parseInt(counter.innerText);
-
-        let current = 0;
-
-        const increment = Math.ceil(target / 50);
-
-        counter.innerText = "0";
-
-        function updateCounter() {
-
-            current += increment;
-
-            if (current < target) {
-
-                counter.innerText = current;
-
-                requestAnimationFrame(updateCounter);
-
-            }
-
-            else {
-
-                counter.innerText = target;
-
-            }
-
-        }
-
-        updateCounter();
-
-        observer.unobserve(counter);
-
-    });
-
-});
-
-counters.forEach(counter => observer.observe(counter));
-
-
-/* ==========================================================
-                BACKEND READY FUNCTIONS
-========================================================== */
-
-/*
-
-InventoryController APIs
-
-GET
-
-/inventory
-
-PUT
-
-/inventory/update
-
-GET
-
-/inventory/low
-
-*/
-
+function statusBadge(currentStock, threshold) {
+    if (currentStock <= 0) return '<span class="badge bg-danger">Out of Stock</span>';
+    if (currentStock <= threshold) return '<span class="badge bg-warning">Low</span>';
+    return '<span class="badge bg-success">Available</span>';
+}
 
 async function fetchInventory() {
+    const tbody = document.getElementById("inventoryTable");
+    if (!tbody) return;
 
     try {
+        const response = await fetch("http://localhost:8080/inventory");
+        const result = await response.json();
+        const items = result.data;
 
-        const response = await fetch(
+        tbody.innerHTML = "";
 
-            "http://localhost:8080/inventory"
+        items.forEach(item => {
+            const product = item.product || {};
+            tbody.innerHTML += `
+                <tr data-inventory-id="${item.id}">
+                    <td>${item.id}</td>
+                    <td>${product.name || "N/A"}</td>
+                    <td>${product.brand || "N/A"}</td>
+                    <td>${product.category || "N/A"}</td>
+                    <td>${item.currentStock}</td>
+                    <td>${statusBadge(item.currentStock, item.threshold)}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm update-btn"
+                            data-id="${item.id}"
+                            data-product-id="${product.id}"
+                            data-current-stock="${item.currentStock}"
+                            data-threshold="${item.threshold}">
+                            Update
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
 
-        );
+        initializeUpdateButtons();
+        initializeRowAnimation();
 
-        const data = await response.json();
-
-        console.log(data);
-
+    } catch (error) {
+        console.log("Inventory API not connected:", error);
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger">Failed to load inventory. Is the backend running?</td></tr>`;
     }
-
-    catch (error) {
-
-        console.log("Inventory API not connected.");
-
-    }
-
 }
 
+function initializeUpdateButtons() {
+    const buttons = document.querySelectorAll(".update-btn");
+    buttons.forEach(button => {
+        button.addEventListener("click", function () {
+            const currentStock = this.dataset.currentStock;
+            const newStock = prompt("Enter new stock quantity:", currentStock);
+            if (newStock === null || newStock.trim() === "" || isNaN(newStock)) return;
 
-async function fetchLowStock() {
+            updateInventory({
+                id: Number(this.dataset.id),
+                product: { id: Number(this.dataset.productId) },
+                currentStock: Number(newStock),
+                threshold: Number(this.dataset.threshold)
+            });
+        });
+    });
+}
 
+async function updateInventory(inventoryPayload) {
     try {
+        const response = await fetch("http://localhost:8080/inventory", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(inventoryPayload)
+        });
 
-        const response = await fetch(
+        if (!response.ok) throw new Error("Update failed");
 
-            "http://localhost:8080/inventory/low"
+        alert("Stock updated successfully.");
+        fetchInventory();
 
-        );
-
-        const data = await response.json();
-
-        console.log(data);
-
+    } catch (error) {
+        console.log("Inventory Update Failed:", error);
+        alert("Failed to update inventory. Check backend logs.");
     }
-
-    catch (error) {
-
-        console.log("Low Stock API unavailable.");
-
-    }
-
 }
-
-
-async function updateInventory(productId) {
-
-    try {
-
-        await fetch(
-
-            "http://localhost:8080/inventory/update",
-
-            {
-
-                method: "PUT",
-
-                headers: {
-
-                    "Content-Type": "application/json"
-
-                },
-
-                body: JSON.stringify({
-
-                    id: productId
-
-                })
-
-            }
-
-        );
-
-    }
-
-    catch (error) {
-
-        console.log("Inventory Update Failed.");
-
-    }
-
-}
-
-
-/* ==========================================================
-                    PAGE READY
-========================================================== */
 
 console.log("Retail Astra Inventory Loaded Successfully.");
