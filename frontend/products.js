@@ -4,14 +4,13 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    fetchProducts();
+
     initializeSearch();
 
     initializeCategoryFilter();
 
-    initializeProductButtons();
-
 });
-
 
 /* ==========================================================
                     PRODUCT SEARCH
@@ -265,20 +264,54 @@ async function fetchProducts() {
 
         const response = await fetch("http://localhost:8080/products");
 
-        const data = await response.json();
+        const result = await response.json();
 
-        console.log(data);
+        const products = result.data;
+
+        const container = document.getElementById("productContainer");
+
+        container.innerHTML = "";
+
+        products.forEach(product => {
+
+            container.innerHTML += `
+                <div class="col-lg-3 col-md-6 product-card" data-category="${product.category}">
+                    <div class="card product-item">
+
+                        <img src="${product.imageUrl || 'https://placehold.co/400x450'}"
+                             class="card-img-top">
+
+                        <div class="card-body">
+
+                            <h5>${product.name}</h5>
+
+                            <p>${product.brand}</p>
+
+                            <h4>₹${product.price}</h4>
+
+                            <button class="btn btn-primary w-100 view-btn">
+                                View Details
+                            </button>
+
+                        </div>
+
+                    </div>
+                </div>
+            `;
+
+        });
+
+        initializeProductButtons();
 
     }
 
     catch (error) {
 
-        console.log("Backend not connected yet.");
+        console.error(error);
 
     }
 
 }
-
 
 async function searchProducts(keyword) {
 
